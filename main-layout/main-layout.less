@@ -1,0 +1,38 @@
+// main: ../index.less
+
+@main-layout-gap: calc((@main-layout_width - 3 * (@menu-item_diameter + 2px)) / 2);
+
+.main-layout {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  gap: 0px @main-layout-gap;
+  height: 100%;
+}
+
+.main-layout__content {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.content__visibility-flag:checked ~ * .main-layout {
+  animation: main-layout_translate @animation_duration linear;
+}
+
+// TODO: remove animation for mobile
+
+@keyframes main-layout_translate {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(-58vh);
+  }
+}
+
+@media (max-width: @max-width-media) {
+  .main-layout {
+    display: block;
+  }
+}

@@ -1,0 +1,16 @@
+// main: ../index.less
+
+.ordered-list {
+  list-style: none;
+  counter-reset: number;
+}
+
+.ordered-list__item::before {
+  content: counter(number);
+  counter-increment: number;
+  display: inline-block;
+  width: 2rem;
+  margin-left: -2.3rem;
+  font-size: 2rem;
+  color: @accent_color;
+}

@@ -1,0 +1,49 @@
+// main: ../index.less
+
+.content {
+  // display: none;
+  visibility: hidden;
+  height: 0px;
+  width: 60%;
+}
+
+.content::before {
+  content: '';
+  display: block;
+  width: @main-layout_width;
+  margin-bottom: 70px;
+  box-shadow: 0px 0px 0px .5px @text_color-soft,
+              @main-layout_width 0px 0px .5px @text_color-soft,
+              calc(-@main-layout_width) 0px 0px .5px @text_color-soft;
+}
+
+.content__visibility-flag {
+  display: none;
+}
+
+// TODO: make play animation once
+
+.content__visibility-flag.trade-section:checked ~ * .content.trade-section,
+.content__visibility-flag.invest-section:checked ~ * .content.invest-section,
+.content__visibility-flag.attract-section:checked ~ * .content.attract-section {
+  animation: content_show 0s step-start @animation_duration forwards;
+}
+
+@keyframes content_show {
+  from,
+  to {
+    visibility: visible;
+    height: auto;
+  }
+}
+
+@media (max-width: @max-width-media) {
+  .content {
+    width: auto;
+    padding: 10px 20px 60vw;
+    background: bottom / 130vw no-repeat url(wrapper/background-1.png);
+  }
+  .content::before {
+    content: none;
+  }
+}

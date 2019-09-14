@@ -1,0 +1,117 @@
+// main: ../index.less
+
+@menu-item_diameter: 345px;
+@menu-item_font-size: 1.4rem;
+@menu-item_arrow-size: calc(0.8 * @menu-item_font-size);
+
+.menu-item {
+  display: flex;
+  font-size: @menu-item_font-size;
+  background: no-repeat @backgroung_color
+}
+
+.menu-item[for="trade-section"] {
+  background-image: url(menu-item/menu-item-image-1.png);
+}
+
+.menu-item[for="invest-section"] {
+  background-image: url(menu-item/menu-item-image-2.png);
+}
+
+.menu-item[for="attract-section"] {
+  background-image: url(menu-item/menu-item-image-3.png);
+}
+
+@media (min-width: @max-width-media) {
+  .menu-item {
+    width: @menu-item_diameter;
+    height: @menu-item_diameter;
+    border: solid 1px rgba(255, 255, 255, 0);
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 10px @backgroung_color;
+    background-position: 50% 30%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-item::before { /* push down text of .menu-item */
+    content: '';
+    margin-bottom: 90px;
+  }
+
+  .menu-item:hover {
+    cursor: pointer;
+    border-color: @accent_color;
+  }
+
+// TODO: check spaces for mobile layout
+
+  @keyframes menu-item_change-button {
+    from,
+    to {
+      border-width: 0px 0px 4px 0px;
+      margin-bottom: -1px;
+      border-radius: unset;
+      box-shadow: unset;
+      height: 110px;
+      background: unset;
+      justify-content: center;
+    }
+  }
+  @keyframes menu-item_remove-space {
+    from,
+    to {
+      margin-bottom: 0px;
+    }
+  }
+
+  .content__visibility-flag:checked ~ * .menu-item {
+    animation: menu-item_change-button 0s step-start @animation_duration forwards;
+  }
+
+  .content__visibility-flag:checked ~ * .menu-item::before {
+    animation: menu-item_remove-space 0s step-start @animation_duration forwards;
+  }
+
+  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"],
+  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"],
+  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"] {
+    color: @accent_color;
+    border-color: @accent_color;
+  }
+}
+
+@media (max-width: @max-width-media) {
+  .menu-item {
+    height: 90px;
+    margin: 10px 20px;
+    background-position: 15px 50%;
+    background-size: 60px auto;
+    padding-left: 90px;
+    padding-right: 46px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .menu-item::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 30px;
+    float: right;
+    height: @menu-item_arrow-size;
+    width: @menu-item_arrow-size;
+    border: solid @text_color-soft;
+    border-width: 3px 0px 0px 3px;
+    transform-origin: 35.4% 35.4%;
+    transform: rotate(-135deg);
+  }
+
+  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"]::after,
+  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"]::after,
+  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"]::after {
+    transform: rotate(45deg);
+  }
+}

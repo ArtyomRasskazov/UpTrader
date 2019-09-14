@@ -1,0 +1,55 @@
+// main: ../index.less
+
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background: center / cover no-repeat url(wrapper/background-0.png);
+}
+
+.wrapper > * {
+  width: @main-layout_width;
+}
+
+.content__visibility-flag:checked ~ .wrapper {
+  animation: wrapper_change-background-and-position 0s step-start @animation_duration forwards;
+}
+
+// TODO: make flashing
+
+@keyframes wrapper_flashing {
+  0% {
+    filter: brightness(100%);
+  }
+  50% {
+    filter: brightness(200%);
+  }
+  100% {
+    filter: brightness(100%);
+  }
+}
+
+@keyframes wrapper_change-background-and-position {
+  from,
+  to {
+    background-image: url(wrapper/background-1.png);
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: @max-width-media) {
+  .wrapper {
+    justify-content: flex-start;
+  }
+
+  .wrapper > * {
+    width: auto;
+  }
+
+  .content__visibility-flag:checked ~ .wrapper {
+    background: unset;
+  }
+}
