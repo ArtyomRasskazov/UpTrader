@@ -1,4 +1,5 @@
 // main: ../index.less
+// TODO: try make .menu-item looks simple
 
 @menu-item_diameter: 345px;
 @menu-item_font-size: 1.4rem;
@@ -22,67 +23,7 @@
   background-image: url(menu-item/menu-item-image-3.png);
 }
 
-@media (min-width: @max-width-media) {
-  .menu-item {
-    width: @menu-item_diameter;
-    height: @menu-item_diameter;
-    border: solid 1px rgba(255, 255, 255, 0);
-    border-radius: 50%;
-    box-shadow: 0px 0px 0px 10px @backgroung_color;
-    background-position: 50% 30%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .menu-item::before { /* push down text of .menu-item */
-    content: '';
-    margin-bottom: 90px;
-  }
-
-  .menu-item:hover {
-    cursor: pointer;
-    border-color: @accent_color;
-  }
-
-// TODO: check spaces for mobile layout
-
-  @keyframes menu-item_change-button {
-    from,
-    to {
-      border-width: 0px 0px 4px 0px;
-      margin-bottom: -1px;
-      border-radius: unset;
-      box-shadow: unset;
-      height: 110px;
-      background: unset;
-      justify-content: center;
-    }
-  }
-  @keyframes menu-item_remove-space {
-    from,
-    to {
-      margin-bottom: 0px;
-    }
-  }
-
-  .content__visibility-flag:checked ~ * .menu-item {
-    animation: menu-item_change-button 0s step-start @animation_duration forwards;
-  }
-
-  .content__visibility-flag:checked ~ * .menu-item::before {
-    animation: menu-item_remove-space 0s step-start @animation_duration forwards;
-  }
-
-  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"],
-  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"],
-  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"] {
-    color: @accent_color;
-    border-color: @accent_color;
-  }
-}
-
-@media (max-width: @max-width-media) {
+@media (max-width: @layout_width) {
   .menu-item {
     height: 90px;
     margin: 10px 20px;
@@ -113,5 +54,63 @@
   .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"]::after,
   .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"]::after {
     transform: rotate(45deg);
+  }
+}
+
+@media (min-width: @layout_width) {
+  .menu-item {
+    width: @menu-item_diameter;
+    height: @menu-item_diameter;
+    border: solid 1px rgba(255, 255, 255, 0);
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 10px @backgroung_color;
+    background-position: 50% 30%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-item::before { /* push down text of .menu-item */
+    content: '';
+    margin-bottom: 90px;
+  }
+
+  .menu-item:hover {
+    cursor: pointer;
+    border-color: @accent_color;
+  }
+
+@keyframes menu-item_change-button {
+    from,
+    to {
+      border-width: 0px 0px 3px 0px;
+      margin-bottom: -2px;
+      border-radius: unset;
+      box-shadow: unset;
+      height: 110px;
+      background: unset;
+      justify-content: center;
+    }
+  }
+  @keyframes menu-item_remove-space {
+    from,
+    to {
+      margin-bottom: 0px;
+    }
+  }
+
+  .content__visibility-flag:checked ~ * .menu-item {
+    animation: menu-item_change-button 0s step-start @animation_duration forwards;
+  }
+
+  .content__visibility-flag:checked ~ * .menu-item::before {
+    animation: menu-item_remove-space 0s step-start @animation_duration forwards;
+  }
+
+  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"],
+  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"],
+  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"] {
+    color: @accent_color;
+    border-color: @accent_color;
   }
 }

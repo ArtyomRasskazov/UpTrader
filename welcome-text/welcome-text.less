@@ -4,18 +4,7 @@
   text-align: center;
   font-weight: 400;
   font-size: 2.5rem;
-  height: 60px;
-  margin: 0px 0px 70px 0px;
-}
-
-.welcome-text {
-  grid-row-start: 1;
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-
-.content__visibility-flag:checked ~ * .welcome-text {
-  animation: welcome-text_hidding 0s step-start @animation_duration forwards;
+  margin: 40px 0px 30px 0px;
 }
 
 @keyframes welcome-text_hidding {
@@ -27,8 +16,20 @@
   }
 }
 
-@media (max-width: @max-width-media) {
+.content__visibility-flag:checked ~ * .welcome-text {
+  animation: welcome-text_hidding 0s step-start 0s forwards;
+}
+
+@media (min-width: @layout_width) {
   .welcome-text {
-    margin: 40px 0px 30px 0px;
+    height: 60px;
+    margin: 0px 0px 70px 0px;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .content__visibility-flag:checked ~ * .welcome-text {
+    animation-delay: @animation_duration;
   }
 }

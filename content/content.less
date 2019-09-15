@@ -1,49 +1,54 @@
 // main: ../index.less
 
 .content {
-  // display: none;
-  visibility: hidden;
-  height: 0px;
-  width: 60%;
-}
-
-.content::before {
-  content: '';
-  display: block;
-  width: @main-layout_width;
-  margin-bottom: 70px;
-  box-shadow: 0px 0px 0px .5px @text_color-soft,
-              @main-layout_width 0px 0px .5px @text_color-soft,
-              calc(-@main-layout_width) 0px 0px .5px @text_color-soft;
+  display: none;
 }
 
 .content__visibility-flag {
   display: none;
 }
 
-// TODO: make play animation once
-
 .content__visibility-flag.trade-section:checked ~ * .content.trade-section,
 .content__visibility-flag.invest-section:checked ~ * .content.invest-section,
 .content__visibility-flag.attract-section:checked ~ * .content.attract-section {
-  animation: content_show 0s step-start @animation_duration forwards;
+  display: block;
 }
 
-@keyframes content_show {
-  from,
-  to {
-    visibility: visible;
-    height: auto;
-  }
-}
-
-@media (max-width: @max-width-media) {
-  .content {
-    width: auto;
-    padding: 10px 20px 60vw;
+@media (max-width: @layout_width) {
+  .content__visibility-flag.trade-section:checked ~ * .content.trade-section,
+  .content__visibility-flag.invest-section:checked ~ * .content.invest-section,
+  .content__visibility-flag.attract-section:checked ~ * .content.attract-section {
     background: bottom / 130vw no-repeat url(wrapper/background-1.png);
+    padding: 10px 20px 60vw;
   }
+}
+
+@media (min-width: @layout_width) {
+  .content {
+    width: 60%;
+    background: unset;
+  }
+
   .content::before {
-    content: none;
+    content: '';
+    display: block;
+    width: @layout_width;
+    margin-bottom: 70px;
+    box-shadow: 0px 0px 0px .5px @text_color-soft,
+                @layout_width 0px 0px .5px @text_color-soft,
+                calc(-@layout_width) 0px 0px .5px @text_color-soft;
+  }
+
+  @keyframes content_show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .content__visibility-flag:checked ~ * .content {
+    animation: content_show @animation_duration step-end 0s forwards;
   }
 }
