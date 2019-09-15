@@ -3,12 +3,17 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap&subset=cyrillic');
 
 @import "wrapper/wrapper";
-@import "welcome-text/welcome-text";
 @import "main-layout/main-layout";
+@import "welcome-text/welcome-text";
 @import "menu-item/menu-item";
 @import "content/content";
-@import "open-account-button/open-account-button";
 @import "ordered-list/ordered-list";
+@import "open-account-button/open-account-button";
+
+
+@images-folder: images;
+@icons-folder: icons;
+@list-of-sections: trade-section, invest-section, attract-section;
 
 @backgroung_color: rgba(255, 255, 255, .7);
 @accent_color: rgba(0, 160, 130, 1);
@@ -16,10 +21,13 @@
 @text_color-soft: rgba(80, 80, 80, .8);
 
 @layout_width: 1200px;
+@mobile: 'max-width: @{layout_width}';
+@desktop: 'min-width: @{layout_width}';
+
+@menu-item_diameter: 345px;
+@menu-item_font-size: 1.4rem;
+@menu-item_arrow-size: calc(0.8 * @menu-item_font-size);
+
+@main-layout-gap: calc((@layout_width - 3 * (@menu-item_diameter + 2px)) / 2);
 
 @animation_duration: .4s;
-
-
-body {
-  margin: 0px;
-}

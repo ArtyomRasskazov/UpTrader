@@ -1,5 +1,4 @@
 // main: ../index.less
-// TODO: make flashing
 
 .wrapper {
   font-family: 'Montserrat', sans-serif;
@@ -10,46 +9,45 @@
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  background: center / cover no-repeat url(wrapper/background-0.png) rgba(243, 242, 218, 1);
+  background: center / cover no-repeat url('@{images-folder}/background-0.png') rgba(243, 242, 218, 1);
 }
 
-@media (max-width: @layout_width) {
+
+@media (e(@mobile)) {
   .content__visibility-flag:checked ~ .wrapper {
     background-image: unset;
   }
 }
 
-@media (min-width: @layout_width) {
+
+@media (e(@desktop)) {
   .wrapper {
     justify-content: center;
-  }
-
-  .wrapper > * {
-    width: @layout_width;
-  }
-
-  @keyframes wrapper_change-background-and-position {
-    from,
-    to {
-      background-image: url(wrapper/background-1.png);
-      justify-content: flex-start;
-    }
-  }
-
-  @keyframes wrapper_flashing {
-    0% {
-      opacity: 1;
-    }
-    70% {
-      opacity: .2;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 
   .content__visibility-flag:checked ~ .wrapper {
     animation: wrapper_flashing calc(1.5 * @animation_duration) linear,
                wrapper_change-background-and-position 0s step-start @animation_duration forwards;
+  }
+}
+
+
+@keyframes wrapper_change-background-and-position {
+  from,
+  to {
+    background-image: url('@{images-folder}/background-1.png');
+    justify-content: flex-start;
+  }
+}
+
+@keyframes wrapper_flashing {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: .2;
+  }
+  100% {
+    opacity: 1;
   }
 }

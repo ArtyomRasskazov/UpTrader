@@ -1,29 +1,12 @@
 // main: ../index.less
 
-.content {
-  display: none;
-}
-
+.content,
 .content__visibility-flag {
   display: none;
 }
 
-.content__visibility-flag.trade-section:checked ~ * .content.trade-section,
-.content__visibility-flag.invest-section:checked ~ * .content.invest-section,
-.content__visibility-flag.attract-section:checked ~ * .content.attract-section {
-  display: block;
-}
 
-@media (max-width: @layout_width) {
-  .content__visibility-flag.trade-section:checked ~ * .content.trade-section,
-  .content__visibility-flag.invest-section:checked ~ * .content.invest-section,
-  .content__visibility-flag.attract-section:checked ~ * .content.attract-section {
-    background: bottom / 130vw no-repeat url(wrapper/background-1.png);
-    padding: 10px 20px 60vw;
-  }
-}
-
-@media (min-width: @layout_width) {
+@media (e(@desktop)) {
   .content {
     width: 60%;
     background: unset;
@@ -39,16 +22,47 @@
                 calc(-@layout_width) 0px 0px .5px @text_color-soft;
   }
 
-  @keyframes content_show {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   .content__visibility-flag:checked ~ * .content {
     animation: content_show @animation_duration step-end 0s forwards;
+  }
+}
+
+
+@keyframes content_show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+.content_set-individual-parameters();
+
+.content_set-individual-parameters( @i: 1 ) when ( @i =< length(@list-of-sections ) ) {
+
+  @section: extract( @list-of-sections, @i );
+
+  .content_set-displayed(@section);
+
+  @media (e(@mobile)) {
+    .content_set-for-mobile(@section);
+  }
+
+  .content_set-individual-parameters( @i + 1 );
+}
+
+
+.content_set-displayed(@section) {
+  .content__visibility-flag.@{section}:checked ~ * .content.@{section} {
+    display: block;
+  }
+}
+
+.content_set-for-mobile(@section) {
+  .content__visibility-flag.@{section}:checked ~ * .content.@{section} {
+    background: bottom / 130vw no-repeat url('@{images-folder}/background-1.png');
+    padding: 10px 20px 60vw;
   }
 }

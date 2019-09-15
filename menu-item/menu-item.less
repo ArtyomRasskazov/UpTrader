@@ -1,9 +1,4 @@
 // main: ../index.less
-// TODO: try make .menu-item looks simple
-
-@menu-item_diameter: 345px;
-@menu-item_font-size: 1.4rem;
-@menu-item_arrow-size: calc(0.8 * @menu-item_font-size);
 
 .menu-item {
   display: flex;
@@ -11,19 +6,8 @@
   background: no-repeat @backgroung_color
 }
 
-.menu-item[for="trade-section"] {
-  background-image: url(menu-item/menu-item-image-1.png);
-}
 
-.menu-item[for="invest-section"] {
-  background-image: url(menu-item/menu-item-image-2.png);
-}
-
-.menu-item[for="attract-section"] {
-  background-image: url(menu-item/menu-item-image-3.png);
-}
-
-@media (max-width: @layout_width) {
+@media (e(@mobile)) {
   .menu-item {
     height: 90px;
     margin: 10px 20px;
@@ -40,7 +24,7 @@
     content: '';
     display: block;
     position: absolute;
-    right: 30px;
+    right: 40px;
     float: right;
     height: @menu-item_arrow-size;
     width: @menu-item_arrow-size;
@@ -49,15 +33,10 @@
     transform-origin: 35.4% 35.4%;
     transform: rotate(-135deg);
   }
-
-  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"]::after,
-  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"]::after,
-  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"]::after {
-    transform: rotate(45deg);
-  }
 }
 
-@media (min-width: @layout_width) {
+
+@media (e(@desktop)) {
   .menu-item {
     width: @menu-item_diameter;
     height: @menu-item_diameter;
@@ -80,25 +59,6 @@
     border-color: @accent_color;
   }
 
-@keyframes menu-item_change-button {
-    from,
-    to {
-      border-width: 0px 0px 3px 0px;
-      margin-bottom: -2px;
-      border-radius: unset;
-      box-shadow: unset;
-      height: 110px;
-      background: unset;
-      justify-content: center;
-    }
-  }
-  @keyframes menu-item_remove-space {
-    from,
-    to {
-      margin-bottom: 0px;
-    }
-  }
-
   .content__visibility-flag:checked ~ * .menu-item {
     animation: menu-item_change-button 0s step-start @animation_duration forwards;
   }
@@ -106,10 +66,66 @@
   .content__visibility-flag:checked ~ * .menu-item::before {
     animation: menu-item_remove-space 0s step-start @animation_duration forwards;
   }
+}
 
-  .content__visibility-flag.trade-section:checked ~ * .menu-item[for="trade-section"],
-  .content__visibility-flag.invest-section:checked ~ * .menu-item[for="invest-section"],
-  .content__visibility-flag.attract-section:checked ~ * .menu-item[for="attract-section"] {
+
+@keyframes menu-item_change-button {
+  from,
+  to {
+    justify-content: center;
+    height: 110px;
+    margin-bottom: -2px;
+    border-width: 0px 0px 3px 0px;
+    border-radius: unset;
+    box-shadow: unset;
+    background: unset;
+  }
+}
+
+@keyframes menu-item_remove-space {
+  from,
+  to {
+    margin-bottom: 0px;
+  }
+}
+
+
+.menu-item_set-individual-parameters();
+
+.menu-item_set-individual-parameters( @i: 1 ) when ( @i =< length(@list-of-sections ) ) {
+
+  @section: extract( @list-of-sections, @i );
+
+  .menu-item_set-background-image(@section);
+
+  @media (e(@mobile)) {
+    .menu-item_set-active-section-arrow(@section);
+  }
+
+  @media (e(@desktop)) {
+    .menu-item_set-active-section-colors(@section);
+  }
+
+  .menu-item_set-individual-parameters( @i + 1 );
+}
+
+
+.menu-item_set-background-image(@section) {
+  .menu-item[for="@{section}"] {
+    background-image: url('@{icons-folder}/@{section}-icon.png');
+  }
+}
+
+
+.menu-item_set-active-section-arrow(@section) {
+  .content__visibility-flag.@{section}:checked ~ * .menu-item[for="@{section}"]::after {
+    transform: rotate(45deg);
+  }
+}
+
+
+.menu-item_set-active-section-colors(@section) {
+  .content__visibility-flag.@{section}:checked ~ * .menu-item[for="@{section}"] {
     color: @accent_color;
     border-color: @accent_color;
   }
